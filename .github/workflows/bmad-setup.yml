@@ -1,0 +1,93 @@
+name: BMAD Setup v6.2.0
+
+on:
+  push:
+    paths:
+      - ".github/workflows/bmad-setup.yml"
+      - "bmad-setup.yml"
+
+# ---------------------------------------------------------------------------
+# BMAD v6.2.0 Installation (E8.S1 - Flags-Based)
+# ---------------------------------------------------------------------------
+# Installs BMAD using non-interactive flags only.
+# No expect, no apt-get, no PTY scripting required.
+#
+# Modules installed: bmm, cis, wds
+# Targets: configurable via BMAD_TOOLS (default: github-copilot)
+# Idempotent: skips if _bmad/ already exists
+# ---------------------------------------------------------------------------
+# Repo Write Permission Required for Auto-Commit + Push
+# ---------------------------------------------------------------------------
+permissions:
+  contents: write
+
+jobs:
+  setup-bmad:
+    runs-on: ubuntu-latest # GitHub Default Runner (Linux execution environment)
+
+    steps:
+      # -----------------------------------------------------------
+      # 1) Checkout Repository Source
+      # -----------------------------------------------------------
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          token: ${{ github.token }}
+          persist-credentials: true
+
+      # -----------------------------------------------------------
+      # 2) Setup Node Runtime (v22)
+      # -----------------------------------------------------------
+      - name: Use Node v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # -----------------------------------------------------------
+      # 3) Flags-Based BMAD v6.2.0 Installation (E8.S1)
+      # -----------------------------------------------------------
+      # Replaces the fragile expect/PTY block with a single
+      # non-interactive npx command using --yes and --modules flags.
+      # No apt-get, no expect, no /tmp script files.
+      # -----------------------------------------------------------
+      - name: Install BMAD v6.2.0
+        env:
+          CI: "true"
+          NO_COLOR: "1"
+          FORCE_COLOR: "0"
+          BMAD_TOOLS: "github-copilot,claude-code"
+        run: |
+          if [ -d "_bmad" ]; then
+            echo "BMAD already installed - skipping."
+            exit 0
+          fi
+
+          echo "Installing BMAD for tools: $BMAD_TOOLS"
+
+          npx bmad-method@6.2.0 install \
+            --yes \
+            --directory . \
+            --modules bmm,tea,wds \
+            --tools "$BMAD_TOOLS" \
+            --output-folder ignis_artifacts \
+            --user-name IgnisUser
+
+          # Custom skills were pre-committed directly into tool folders by the server.
+          # Restore them if BMAD install overwrote any of those files.
+          git checkout HEAD -- .github/skills .cursor/skills .claude/skills 2>/dev/null || true
+
+      # ----------------------------------------------------------------------
+      # 4) AUTO-COMMIT BMAD OUTPUT BACK TO THE REPO
+      # ----------------------------------------------------------------------
+      - name: Commit & Push BMAD output into repo
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          # Ensure authenticated origin for subsequent git operations
+          git remote set-url origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+
+          git add -A
+          git commit -m "BMAD auto-install artifacts" || echo "No BMAD changes to commit"
+          git push origin HEAD
