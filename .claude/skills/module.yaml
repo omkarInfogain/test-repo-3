@@ -1,0 +1,69 @@
+# Common-parent copy. Required here because the BMad plugin resolver
+# (PluginResolver Strategy 1) looks for module.yaml + module-help.csv at the
+# deepest common parent of the marketplace.json skills[] paths, which is this
+# directory (custom-skills/), not the repo root. Keep in sync with the
+# repo-root ../module.yaml — see the comment there for why both exist.
+code: ignis
+name: Ignis TDD Extensions
+description: >-
+  Test-first delivery skills for BMAD v6 — testable story authoring and
+  RED/GREEN/REFACTOR implementation, modeled on the Superpowers TDD discipline.
+module_version: 0.1.0
+
+agents:
+  - code: ignis-sm
+    name: Bob (TDD)
+    title: Test-First Scrum Master
+    icon: "📝"
+    description: Drafts stories that are implementable test-first (testable ACs + Test Intent backlog).
+    team: ignis
+  - code: ignis-dev
+    name: Amelia (TDD)
+    title: Test-First Developer
+    icon: "🔴"
+    description: Implements approved stories strictly test-first via RED/GREEN/REFACTOR.
+    team: ignis
+
+dev_story_location:
+  result: '{project-root}/_bmad-output/implementation-artifacts/stories'
+
+sprint_status_file:
+  result: '{project-root}/_bmad-output/implementation-artifacts/sprint-status.yaml'
+
+planning_artifacts:
+  result: '{project-root}/_bmad-output/planning-artifacts'
+
+implementation_artifacts:
+  result: '{project-root}/_bmad-output/implementation-artifacts'
+
+project_context:
+  result: '**/project-context.md'
+
+test_command:
+  prompt: 'Command to run the test suite'
+  default: 'npm test --silent'
+  result: '{value}'
+
+ready_status:
+  result: 'ready-for-dev'
+
+prefer_tea_atdd:
+  result: 'false'
+
+# Story-size advisory threshold (Change C).
+max_test_intent_behaviors:
+  result: '8'
+
+# Human preview before writing the story file (Change F). true = show tables and
+# require approval; a guided UI (Compass) can set this false to use its own review.
+require_story_preview:
+  result: 'true'
+
+# Test framework hint for fixture/seam guidance (Change B). "auto" = detect from
+# project_context / repo; or set explicitly e.g. "jest" | "pytest" | "vitest" | "rspec".
+test_framework:
+  result: 'auto'
+
+# TEA availability policy (Change G). "auto" = detect bmad-tea; false = never flag tea_candidate.
+tea_enabled:
+  result: 'auto'

@@ -1,0 +1,27 @@
+# =============================================================================
+# customize.toml — ignis-tdd-create-story
+# -----------------------------------------------------------------------------
+# Upgrade-safe overrides for this skill. Unlike the stock create-story/dev-story
+# (which are excluded from the override surface), your custom Ignis skills fully
+# support customize.toml. Edit here instead of the SKILL.md / step files so your
+# changes survive reinstalls. Uncomment and adjust as needed.
+# =============================================================================
+
+# Extra instructions injected at skill activation (before step 1).
+# critical_actions = [
+#   "Enforce the team's Given/When/Then AC style guide.",
+#   "Require a non-functional Test Intent row (perf/security) for any API story.",
+# ]
+
+# Add or override step behavior without editing the shards.
+# [steps.step-04-test-intent-backlog]
+# append = "Always include at least one concurrency edge case for stateful endpoints."
+
+# Override the readiness gate wording or add project-specific checks.
+# [checklist]
+# append = [
+#   "Every API behavior names the exact request/response contract.",
+# ]
+
+# Point the template at a project-specific story shape.
+# template_file = "{project-root}/bmad/_cfg/ignis/story-template.md"
