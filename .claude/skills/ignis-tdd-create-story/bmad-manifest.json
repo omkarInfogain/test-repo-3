@@ -1,0 +1,27 @@
+{
+  "name": "ignis-tdd-create-story",
+  "code": "ignis-tdd-create-story",
+  "module": "ignis",
+  "version": "0.3.0",
+  "type": "workflow",
+  "phase": "4-implementation",
+  "phase-name": "Implementation",
+  "menu-code": "TCS",
+  "agent": "ignis-sm",
+  "standalone": true,
+  "template": true,
+  "description": "Draft a story test-first: testable acceptance criteria plus a per-behavior Test Intent backlog. Alternative to bmad-bmm-create-story.",
+  "entry": "SKILL.md",
+  "config_source": "{project-root}/_bmad/ignis/config.yaml",
+  "template_file": "template.md",
+  "validation": "checklist.md",
+  "steps": [
+    "steps/step-01-orient.md",
+    "steps/step-02-narrative-scope.md",
+    "steps/step-03-testable-acceptance-criteria.md",
+    "steps/step-04-test-intent-backlog.md",
+    "steps/step-05-sequence-tasks.md",
+    "steps/step-06-readiness-gate.md",
+    "steps/step-07-finalize.md"
+  ]
+}

@@ -1,0 +1,25 @@
+# =============================================================================
+# customize.toml — ignis-tdd-dev
+# -----------------------------------------------------------------------------
+# Upgrade-safe overrides. Your custom Ignis skills support customize.toml (the
+# stock dev-story does not). Edit here rather than the SKILL.md / step files.
+# =============================================================================
+
+# Extra instructions injected at skill activation (before step 1).
+# critical_actions = [
+#   "Run the linter and type-checker as part of every GREEN gate; treat warnings as failures.",
+#   "For any DB change, add a migration test before the schema change (RED first).",
+# ]
+
+# Tighten a specific gate without editing the shard.
+# [steps.step-05-green]
+# append = "Coverage on changed files must not drop below the project threshold."
+
+# Project-specific additions to the Definition of Done.
+# [checklist]
+# append = [
+#   "No new TODO/FIXME left in changed files.",
+# ]
+
+# Force TEA delegation policy here instead of config.yaml if you prefer.
+# prefer_tea_atdd = true

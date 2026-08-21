@@ -1,0 +1,3 @@
+module,skill,display-name,menu-code,description,action,args,phase,preceded-by,followed-by,required,output-location,outputs
+Ignis,ignis-tdd-create-story,Ignis TDD Create Story,TCS,Use when drafting a story that must be implemented test-first. Produces testable acceptance criteria and a per-behavior Test Intent backlog. Alternative to bmad-bmm-create-story.,activate,,4-implementation,,ignis-tdd-dev,false,,
+Ignis,ignis-tdd-dev,Ignis TDD Dev,TDD,Use when implementing an approved story test-first. Drives the Test Intent backlog through RED/GREEN/REFACTOR with HALT gates. Alternative to bmad-bmm-dev-story.,activate,,4-implementation,ignis-tdd-create-story,,false,,

@@ -1,0 +1,28 @@
+{
+  "name": "ignis-tdd-dev",
+  "code": "ignis-tdd-dev",
+  "module": "ignis",
+  "version": "0.3.0",
+  "type": "workflow",
+  "phase": "4-implementation",
+  "phase-name": "Implementation",
+  "menu-code": "TDD",
+  "agent": "ignis-dev",
+  "standalone": true,
+  "template": false,
+  "description": "Implement a story test-first (RED/GREEN/REFACTOR over the Test Intent backlog). Alternative to bmad-bmm-dev-story.",
+  "entry": "SKILL.md",
+  "config_source": "{project-root}/_bmad/ignis/config.yaml",
+  "validation": "checklist.md",
+  "steps": [
+    "steps/step-01-orient-backlog.md",
+    "steps/step-02-clean-baseline.md",
+    "steps/step-03-red.md",
+    "steps/step-04-verify-red.md",
+    "steps/step-05-green.md",
+    "steps/step-06-refactor.md",
+    "steps/step-07-loop.md",
+    "steps/step-08-completion-verify.md",
+    "steps/step-09-finalize.md"
+  ]
+}
